@@ -54,8 +54,8 @@ def compile(exr):
 import pyfuncs as funcs
 docs=__docs__()
 filters = __filters__()
-from pymodel import Index,IndexOption,FieldInfo
-def create_index(fields,options):
-    import pymodel
-    return pymodel.Index(fields,options)
-from pydocs import BSON_select, BSON_doc
+# from pymodel import Index,IndexOption,FieldInfo
+# def create_index(fields,options):
+#     import pymodel
+#     return pymodel.Index(fields,options)
+# from pydocs import BSON_select, BSON_doc
