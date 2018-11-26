@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d480f0af-f98e-4019-82ef-b02a3f9467dc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pymqr/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pymqr/documents.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/documents.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pymqr/pyquery.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/pyquery.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,11 +67,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pymqr/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="25" selection-start-column="25" selection-end-column="25" />
+            <state relative-caret-position="340">
+              <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -105,14 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pymqr/pyquery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="485">
+              <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
             </state>
           </provider>
         </entry>
@@ -169,6 +165,7 @@
         <option value="$PROJECT_DIR$/pymqr/documents.py" />
         <option value="$PROJECT_DIR$/pymqr/pydocs.py" />
         <option value="$PROJECT_DIR$/pymqr/__init__.py" />
+        <option value="$PROJECT_DIR$/pymqr/pyquery.py" />
       </list>
     </option>
   </component>
@@ -310,16 +307,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pymqr/pyquery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pymqr/pydocs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="485">
@@ -329,8 +316,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pymqr/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="25" selection-start-column="25" selection-end-column="25" />
+        <state relative-caret-position="340">
+          <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pymqr/pyquery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
         </state>
       </provider>
     </entry>
