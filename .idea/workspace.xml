@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d480f0af-f98e-4019-82ef-b02a3f9467dc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pymqr/pyquery.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/pyquery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pymqr/documents.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/documents.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,12 +40,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="12" />
+          <entry key="py" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="12" />
+          <entry key="Python" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -76,11 +76,33 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pymqr/pyquery.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="414">
               <caret line="334" lean-forward="true" selection-start-line="334" selection-end-line="334" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pymqr/documents.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="323" lean-forward="true" selection-start-line="323" selection-end-line="323" />
+              <folding>
+                <element signature="e#340#641#0" />
+                <element signature="e#680#748#0" />
+                <element signature="e#790#1002#0" />
+                <element signature="e#1041#1254#0" />
+                <element signature="e#1279#2040#0" />
+                <element signature="e#2120#2347#0" />
+                <element signature="e#2411#2641#0" />
+                <element signature="e#2707#2961#0" />
+                <element signature="e#3032#3274#0" />
+                <element signature="e#3329#3703#0" />
+                <element signature="e#3761#4004#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,10 +124,10 @@
       <list>
         <option value="$PROJECT_DIR$/pymqr/expressions.py" />
         <option value="$PROJECT_DIR$/pymqr/mobject.py" />
-        <option value="$PROJECT_DIR$/pymqr/documents.py" />
         <option value="$PROJECT_DIR$/pymqr/pydocs.py" />
         <option value="$PROJECT_DIR$/pymqr/__init__.py" />
         <option value="$PROJECT_DIR$/pymqr/pyquery.py" />
+        <option value="$PROJECT_DIR$/pymqr/documents.py" />
       </list>
     </option>
   </component>
@@ -207,32 +229,6 @@
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pymqr/documents.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2120">
-          <caret line="301" selection-start-line="301" selection-end-line="301" />
-          <folding>
-            <element signature="e#340#641#0" />
-            <element signature="e#680#748#0" />
-            <element signature="e#790#1002#0" />
-            <element signature="e#1041#1254#0" />
-            <element signature="e#1279#2040#0" />
-            <element signature="e#2120#2347#0" />
-            <element signature="e#2411#2641#0" />
-            <element signature="e#2707#2961#0" />
-            <element signature="e#3032#3274#0" />
-            <element signature="e#3329#3703#0" />
-            <element signature="e#3761#4004#0" />
-            <element signature="e#5686#8015#0" />
-            <element signature="e#7258#7419#0" />
-            <element signature="e#7481#7634#0" />
-            <element signature="e#7686#7833#0" />
-            <element signature="e#8351#8881#0" />
-            <element signature="e#8925#9819#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pymqr/pydocs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8300">
@@ -271,6 +267,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="334" lean-forward="true" selection-start-line="334" selection-end-line="334" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pymqr/documents.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="323" lean-forward="true" selection-start-line="323" selection-end-line="323" />
+          <folding>
+            <element signature="e#340#641#0" />
+            <element signature="e#680#748#0" />
+            <element signature="e#790#1002#0" />
+            <element signature="e#1041#1254#0" />
+            <element signature="e#1279#2040#0" />
+            <element signature="e#2120#2347#0" />
+            <element signature="e#2411#2641#0" />
+            <element signature="e#2707#2961#0" />
+            <element signature="e#3032#3274#0" />
+            <element signature="e#3329#3703#0" />
+            <element signature="e#3761#4004#0" />
+          </folding>
         </state>
       </provider>
     </entry>
