@@ -91,11 +91,26 @@ class entity():
     def commit(self):
         if self.__insert_data__!=None:
             if type(self.__insert_data__) is list:
-                return self.__do_insert_many__(self.__insert_data__)
+                try:
+                    ret = self.__do_insert_many__(self.__insert_data__)
+                    return self.__insert_data__, None,ret
+                except Exception as ex:
+                    return self.__insert_data__, ex, None
+
+
             else:
-                return self.__do_insert_one__(self.__insert_data__)
+                try:
+                    ret = self.__do_insert_one__(self.__insert_data__)
+                    return self.__insert_data__, None, ret
+                except Exception as ex:
+                    return self.__insert_data__,ex,None
         elif self.__data__!=None:
-            return self.__do_update_data__(self.__data__)
+            try:
+                ret = self.__do_update_data__(self.__data__)
+                return self.__data__,None,ret
+            except Exception as ex:
+                return self.__data__, ex, None
+
         else:
             return None,"Nothing to commit"
     def set(self,*args,**kwargs):
