@@ -11,10 +11,16 @@ def __build_data__(data):
                 ret.update({
                     pydocs.get_field_expr(k,True):__build_data__(v)
                 })
+            elif hasattr(v,"to_dict"):
+                ret.update ({
+                    k: __build_data__ (v.to_dict())
+                })
             else:
                 ret.update ({
                     k: __build_data__ (v)
                 })
+    elif hasattr(data,"to_dict"):
+        return __build_data__(data.to_dict())
     else:
         return data
     return ret
@@ -99,7 +105,7 @@ class entity():
         if self.__data__== None:
             self.__data__={}
         self.__data__.update({
-            "$set": _data
+            "$set": __build_data__(_data)
         })
         return self
     def push(self,*args,**kwargs):
@@ -109,7 +115,7 @@ class entity():
         if self.__data__== None:
             self.__data__={}
         self.__data__.update({
-            "$push": _data
+            "$push":  __build_data__(_data)
         })
         return self
     def pull(self,expr,*args,**kwargs):
@@ -128,7 +134,7 @@ class entity():
         if self.__data__== None:
             self.__data__={}
         self.__data__.update({
-            "$inc": _data
+            "$inc": __build_data__(_data)
         })
         return self
     def mul(self,*args,**kwargs):
