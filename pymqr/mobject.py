@@ -132,32 +132,41 @@ class dynamic_object(__validator_class__):
         super(dynamic_object, self).__setattr__(key, value)
     def is_empty(self):
         return self.__dict__ == {}
-    def __lshift__(self, other):
+    def __set_data_field_value__(self,other):
         import pymqr.pydocs
-        if not isinstance(other,tuple):
-            raise Exception("Incorect data the data must be (key,value) \n"
-                            "key is str, unicode or {0}".format(pymqr.pydocs.Fields))
+        if not isinstance (other, tuple):
+            raise Exception ("Incorect data the data must be (key,value) \n"
+                             "key is str, unicode or {0}".format (pymqr.pydocs.Fields))
         key = other[0]
-        if isinstance(key,pymqr.pydocs.Fields):
+        if isinstance (key, pymqr.pydocs.Fields):
             import pymqr
-            key = pymqr.pydocs.get_field_expr(key,True)
-        items = key.split('.')
+            key = pymqr.pydocs.get_field_expr (key, True)
+        items = key.split ('.')
         ptr = self
 
-        ptr_name =""
-        for i in range(0,items.__len__()-1,1):
+        ptr_name = ""
+        for i in range (0, items.__len__ () - 1, 1):
             ptr_name = items[i]
             ptr.__dict__.update ({"__validator__": False})
-            if not hasattr(ptr,ptr_name):
+            if not hasattr (ptr, ptr_name):
                 setattr (ptr, ptr_name, dynamic_object ())
 
-            _ptr = getattr(ptr,ptr_name)
+            _ptr = getattr (ptr, ptr_name)
             if _ptr == None:
-                _ptr =dynamic_object()
-                setattr(ptr,ptr_name,_ptr)
+                _ptr = dynamic_object ()
+                setattr (ptr, ptr_name, _ptr)
             ptr.__dict__.update ({"__validator__": True})
             ptr = _ptr
         ptr.__dict__.update ({"__validator__": True})
-        setattr(ptr,items[items.__len__()-1],other[1])
+        setattr (ptr, items[items.__len__ () - 1], other[1])
+    def __lshift__(self, other):
+        if isinstance(other,tuple):
+            self.__set_data_field_value__(other)
+        elif isinstance(other,set):
+            for item in list(other):
+                self.__set_data_field_value__ (item)
+
+
+
 
 
