@@ -4,6 +4,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 import datetime
+
 class __validator_class__(object):
     def __init__(self):
         # self.__properties__ ={}
@@ -74,6 +75,7 @@ class __validator_class__(object):
         })
 class dynamic_object(__validator_class__):
     def __init__(self,*args,**kwargs):
+        import pydocs
 
         data = kwargs
         if args.__len__()>0:
@@ -83,7 +85,11 @@ class dynamic_object(__validator_class__):
             return
         if data != {}:
             self.__dict__.update({"__validator__": False})
-            for k,v in data.items():
+            for _k,v in data.items():
+                k = _k
+                if isinstance(_k,pydocs.Fields):
+                    k = pydocs.get_field_expr(_k,True)
+
                 if k[0:2] != "__" and k.count('.') == 0:
                     self.__properties__.update({k:1})
                     if type(v) is dict:
@@ -99,6 +105,7 @@ class dynamic_object(__validator_class__):
                     else:
                         setattr(self, k, v)
             self.__dict__.update({"__validator__": True})
+
     def to_dict(self):
         keys = [x for x in self.__dict__.keys() if x[0:2] != "__"]
         if keys == []:
@@ -160,11 +167,40 @@ class dynamic_object(__validator_class__):
         ptr.__dict__.update ({"__validator__": True})
         setattr (ptr, items[items.__len__ () - 1], other[1])
     def __lshift__(self, other):
+        """
+
+        :param other:
+        :return:
+        """
         if isinstance(other,tuple):
             self.__set_data_field_value__(other)
         elif isinstance(other,set):
             for item in list(other):
                 self.__set_data_field_value__ (item)
+    def filter_to_oject(self, *args,**kwargsk):
+        import pydocs
+
+        other = args
+
+        field_list = []
+        for item in list(other):
+            if isinstance(item,pydocs.Fields):
+                field_list.append(pydocs.get_field_expr(item,True))
+            else:
+                field_list.append(item)
+        ret = {}
+        filter = set(self.__dict__).intersection(field_list)
+        for item in list(filter):
+            ret.update({
+                item:self.__dict__.get(item,None)
+            })
+        return dynamic_object(ret)
+
+    def __ilshift__(self, other):
+        x=1
+
+
+
 
 
 
