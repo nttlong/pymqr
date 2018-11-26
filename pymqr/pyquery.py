@@ -298,7 +298,7 @@ class query ():
     def object(self):
         ret= list(self.items)
         if ret.__len__()>0:
-            return mobject.dynamic_object(items[0])
+            return mobject.dynamic_object(ret[0])
         else:
             return mobject.dynamic_object({})
 
