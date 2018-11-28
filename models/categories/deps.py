@@ -5,6 +5,8 @@ from ..commons import BaseObject
 @documents.Collection("departments")
 @documents.UniqueIndex([
     "Code"
+],[
+    "LevelCode"
 ])
 class Deps(BaseObject):
     def __init__(self):

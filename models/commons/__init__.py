@@ -9,4 +9,5 @@ class BaseObject(object):
         self.CreatedOn = datetime.datetime,True
     def test(self):
         x=1
+        return  "dasdas"
 

@@ -11,6 +11,10 @@ db = cnn.get_database("db1")
 db.authenticate("root","123456")
 settings.setdb(db)
 
-data = deps.Deps<<{}
-import pprint
-pprint.pprint(data.to_dict())
+data = deps.Deps<<{
+    deps.Deps.Code:"AA",
+    deps.Deps.Name:"CCC"
+}
+query(deps.Deps).insert(data).commit()
+# import pprint
+# pprint.pprint(data.to_dict())
