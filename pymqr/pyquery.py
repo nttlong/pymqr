@@ -48,8 +48,8 @@ class query ():
                 from . import settings
                 args = (settings.getdb(), args[0])
         elif args.__len__()==2:
-            if not type(args[1]) in [str,unicode] or \
-                    not issubclass (type (args[1]), documents.BaseDocuments) or \
+            if not type(args[1]) in [str,unicode] and \
+                    not issubclass (type (args[1]), documents.BaseDocuments) and \
                     not isinstance(args[1],collection.Collection):
                 raise Exception("The second argument must be {0} or an object inherit from {1}".format(
                     str,documents.BaseDocuments
