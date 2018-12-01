@@ -248,7 +248,7 @@ class Fields(BaseFields):
         return __apply__("$or", self, other)
 
     def __lshift__(self, other):
-        if other == 0 :
+        if other is 0 :
             ret = Fields ()
             ret.__tree__ = get_field_expr (other, True)
             ret.__dict__.update ({
