@@ -10,6 +10,13 @@ class ___CollectionMapClassWrapper__():
     def __init__(self,name):
         self.name = name
     def wrapper(self,*args,**kwargs):
+        ret = None
+        if self.name == None:
+            ret = args[0].__new__ (BaseDocuments, self.name, args[0].__dict__)
+            ret.__dict__.update ({
+                "__origin__": args[0] ()
+            })
+            return ret
         global __unique_keys__
         if __unique_keys__ == None:
             __unique_keys__= {}
@@ -35,6 +42,10 @@ class ___CollectionMapClassWrapper__():
 def Collection(*args,**kwargs):
     ret = ___CollectionMapClassWrapper__(args[0])
     return ret.wrapper
+def FormModel(*args,**kwargs):
+    ret = ___CollectionMapClassWrapper__(None)
+    return ret.wrapper
+
 def EmbededDocument(*args,**kwargs):
     def wrapper(*args,**kwargs):
         ret = args[0].__new__(BaseDocuments,None,args[0].__dict__)
