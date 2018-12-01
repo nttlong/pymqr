@@ -120,12 +120,15 @@ class __GOBBLE__():
             return value
     @staticmethod
     def get_fields_info(data):
-        if isinstance(data,dict):
-            ret = {}
-            for k,v in data.items():
-                if not (k.__len__()>2 and k[0:2] == "__" and k[k.__len__():k.__len__()-2] =="__"):
-                    ret.update({k:v})
-            return ret
+        _data =data
+        if not isinstance(data,dict):
+            if hasattr(data,"__dict__"):
+                _data =data.__dict__
+        ret = {}
+        for k,v in _data.items():
+            if not (k.__len__()>2 and k[0:2] == "__" and k[k.__len__():k.__len__()-2] =="__"):
+                ret.update({k:v})
+        return ret
     @staticmethod
     def get_from_dict(data):
         import pydocs
