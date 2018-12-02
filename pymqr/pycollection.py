@@ -83,7 +83,7 @@ class entity():
             })
             return data,None,ret
         except pymongo.errors.DuplicateKeyError as ex:
-            raise errors.__duplicate__(ex)
+            raise errors.__duplicate__(self.owner.coll,ex)
 
         except Exception as ex:
             raise ex
@@ -114,7 +114,8 @@ class entity():
                 try:
                     ret = self.__do_insert_one__(self.__insert_data__)
                     return self.__insert_data__, None, ret
-
+                except errors.DataException as ex:
+                    return self.__insert_data__, ex, None
                 except Exception as ex:
                     return self.__insert_data__,ex,None
         elif self.__data__!=None:
