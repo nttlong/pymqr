@@ -8,5 +8,9 @@ setup (
     license='',
     author='nttlong',
     author_email='zugeliang2000@gmail.com',
-    description=''
+    description='',
+    install_requires=[
+        'enum',
+        'pymongo'
+    ]
 )
