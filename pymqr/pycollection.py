@@ -1,4 +1,5 @@
 import mobject
+from . import errors
 def __build_data__(data):
     ret ={}
     if isinstance(data,dict):
@@ -74,12 +75,16 @@ class entity():
     def object(self):
         return mobject.dynamic_object(self.find_one())
     def __do_insert_one__(self,data):
+        import pymongo
         try:
             ret= self.owner.coll.insert_one(data)
             data.update({
                 "_id":ret.inserted_id
             })
             return data,None,ret
+        except pymongo.errors.DuplicateKeyError as ex:
+            raise errors.__duplicate__(ex)
+
         except Exception as ex:
             raise ex
     def __do_insert_many__(self,items):
@@ -95,6 +100,7 @@ class entity():
     def __do_update_data__(self,data):
         return self.owner.coll.update_many(self.__where__,data)
     def commit(self):
+        import pymongo
         if self.__insert_data__!=None:
             if type(self.__insert_data__) is list:
                 try:
@@ -108,6 +114,7 @@ class entity():
                 try:
                     ret = self.__do_insert_one__(self.__insert_data__)
                     return self.__insert_data__, None, ret
+
                 except Exception as ex:
                     return self.__insert_data__,ex,None
         elif self.__data__!=None:
