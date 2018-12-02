@@ -84,9 +84,8 @@ class entity():
             return data,None,ret
         except pymongo.errors.DuplicateKeyError as ex:
             raise errors.__duplicate__(self.owner.coll,ex)
-
         except Exception as ex:
-            raise ex
+            raise errors.__unknown__ (self.owner.coll, ex)
     def __do_insert_many__(self,items):
         try:
             ret= self.owner.coll.insert_many(items)
@@ -95,10 +94,17 @@ class entity():
                     "_id":ret.inserted_ids[i]
                 })
             return items,None,ret
+        except pymongo.errors.DuplicateKeyError as ex:
+            raise errors.__duplicate__ (self.owner.coll, ex)
         except Exception as ex:
-            raise ex
+            raise errors.__unknown__ (self.owner.coll, ex)
     def __do_update_data__(self,data):
-        return self.owner.coll.update_many(self.__where__,data)
+        try:
+            return self.owner.coll.update_many(self.__where__,data)
+        except pymongo.errors.DuplicateKeyError as ex:
+            raise errors.__duplicate__ (self.owner.coll, ex)
+        except Exception as ex:
+            raise errors.__unknown__ (self.owner.coll, ex)
     def commit(self):
         import pymongo
         if self.__insert_data__!=None:
