@@ -35,6 +35,12 @@ class query ():
         import documents
         from pymongo import database
         from pymongo import collection
+        if args.__len__() == 3:
+            self.db = args[0]
+            self.prefix = args[1]
+            self.collection_name =args[2].get_collection_name()
+            self.pipeline = []
+            return
         if args.__len__()==1:
             if not type(args[0]) in [str,unicode] and \
                     not issubclass (type (args[0]), documents.BaseDocuments) and \
