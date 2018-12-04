@@ -214,7 +214,7 @@ class Fields(BaseFields):
 
 
     def __ne__(self, other):
-        if self.__for_filter:
+        if self.__dict__.get("__for_filter__", True):
             if type(other) in [str, unicode]:
                 self.__tree__ = {
                     self.__name__:{"$ne": {
@@ -397,7 +397,7 @@ class Fields(BaseFields):
                 return {
                     self.__dict__["__alias__"]: self.__name__
                 }
-            elif self.__name__== None:
+            elif self.__name__ == None:
                 return {
                     self.__dict__["__alias__"]: self.__tree__
                 }
