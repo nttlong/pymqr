@@ -286,7 +286,7 @@ class query ():
         ))
         return self
 
-    def group(self, _id=None, *args, **kwargs):
+    def group(self, _id, *args, **kwargs):
         import pyaggregatebuilders
         self.stages (pyaggregatebuilders.Group (
             _id,
