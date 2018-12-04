@@ -392,7 +392,7 @@ class query ():
             ret.total_items = ret_counts[0]["ret"]
             ret.page_size = page_size
             ret.page_index = page_index
-            ret.total_pages = ret.total_pages / ret.page_size
+            ret.total_pages = ret.params / ret.page_size
             if ret.total_pages % ret.page_size > 0:
                 ret.total_pages += 1
             self.pipeline.append ({
