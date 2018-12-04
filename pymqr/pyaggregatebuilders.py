@@ -341,7 +341,7 @@ class Facet(PipelineStage):
 
 
 class Group(PipelineStage):
-    def __init__(self, _id=None, *args, **kwargs):
+    def __init__(self, _id, *args, **kwargs):
         import pydocs
         import expression_parser
         __id = _id
@@ -369,9 +369,13 @@ class Group(PipelineStage):
                         item:expression_parser.to_mongobd(item)
                     })
                 elif isinstance(item,pydocs.Fields):
-                    _selector.update({
+                    cValue = item.to_mongodb()
+                    if not isinstance(cValue,dict):
+                        raise Exception("Select item in group must be alias, not a fiel\n"
+                                        "Example: group(None,pymqr.docs.MyFielsdName<<pymqr.funcs.first(pymqr.docs.MyFielsdName)")
+                    _selector.update(
                         item.to_mongodb()
-                    })
+                    )
 
         self.__stage__ = _selector
 
