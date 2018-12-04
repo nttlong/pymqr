@@ -397,6 +397,10 @@ class Fields(BaseFields):
                 return {
                     self.__dict__["__alias__"]: self.__name__
                 }
+            elif self.__name__== None:
+                return {
+                    self.__dict__["__alias__"]: self.__tree__
+                }
             else:
                 return {
                     self.__dict__["__alias__"]: {self.__name__: self.__tree__}
