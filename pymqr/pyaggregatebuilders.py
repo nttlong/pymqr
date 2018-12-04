@@ -404,10 +404,14 @@ class Sort(PipelineStage):
     def __init__(self, *args, **kwargs):
         import pydocs
         import expression_parser
-        data = {}
+        import pymongo
+        data = []
         if args.__len__() > 0:
             for item in args:
-                data.update(item)
+                if item.items()[0][1] == 1:
+                    data.append((item.items()[0][0],pymongo.ASCENDING))
+                else:
+                    data.append((item.items()[0][0], pymongo.DESCENDING))
         else:
             for k, v in kwargs.items():
                 if type(k) in [str, unicode]:
