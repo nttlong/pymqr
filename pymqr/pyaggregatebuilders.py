@@ -405,13 +405,15 @@ class Sort(PipelineStage):
         import pydocs
         import expression_parser
         import pymongo
-        data = []
+        from collections import OrderedDict
+        data =  OrderedDict()
         if args.__len__() > 0:
             for item in args:
                 if item.items()[0][1] == 1:
-                    data.append((item.items()[0][0],pymongo.ASCENDING))
+                    data[item.items()[0][0]]=pymongo.ASCENDING
                 else:
-                    data.append((item.items()[0][0], pymongo.DESCENDING))
+                    data[item.items()[0][0]]=pymongo.DESCENDING
+
         else:
             for k, v in kwargs.items():
                 if type(k) in [str, unicode]:
