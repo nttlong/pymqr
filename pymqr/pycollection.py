@@ -100,7 +100,8 @@ class entity():
             raise errors.__unknown__ (self.owner.coll, ex)
     def __do_update_data__(self,data):
         try:
-            return self.owner.coll.update_many(self.__where__,data)
+            ret = self.owner.coll.update_many(self.__where__,data)
+            return data,None,ret
         except pymongo.errors.DuplicateKeyError as ex:
             raise errors.__duplicate__ (self.owner.coll, ex)
         except Exception as ex:
@@ -111,7 +112,7 @@ class entity():
             if type(self.__insert_data__) is list:
                 try:
                     ret = self.__do_insert_many__(self.__insert_data__)
-                    return self.__insert_data__, None,ret
+                    return ret
                 except Exception as ex:
                     return self.__insert_data__, ex, None
 
@@ -119,7 +120,7 @@ class entity():
             else:
                 try:
                     ret = self.__do_insert_one__(self.__insert_data__)
-                    return self.__insert_data__, None, ret
+                    return ret
                 except errors.DataException as ex:
                     return self.__insert_data__, ex, None
                 except Exception as ex:
