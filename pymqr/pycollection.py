@@ -84,8 +84,8 @@ class entity():
             return data,None,ret
         except pymongo.errors.DuplicateKeyError as ex:
             raise errors.__duplicate__(self.owner.coll,ex)
-        except Exception as ex:
-            raise errors.__unknown__ (self.owner.coll, ex)
+        # except Exception as ex:
+        #     raise errors.__unknown__ (self.owner.coll, ex)
     def __do_insert_many__(self,items):
         try:
             ret= self.owner.coll.insert_many(items)
@@ -96,25 +96,22 @@ class entity():
             return items,None,ret
         except pymongo.errors.DuplicateKeyError as ex:
             raise errors.__duplicate__ (self.owner.coll, ex)
-        except Exception as ex:
-            raise errors.__unknown__ (self.owner.coll, ex)
+        # except Exception as ex:
+        #     raise errors.__unknown__ (self.owner.coll, ex)
     def __do_update_data__(self,data):
         try:
             ret = self.owner.coll.update_many(self.__where__,data)
             return data,None,ret
         except pymongo.errors.DuplicateKeyError as ex:
             raise errors.__duplicate__ (self.owner.coll, ex)
-        except Exception as ex:
-            raise errors.__unknown__ (self.owner.coll, ex)
+        # except Exception as ex:
+        #     raise errors.__unknown__ (self.owner.coll, ex)
     def commit(self):
         import pymongo
         if self.__insert_data__!=None:
             if type(self.__insert_data__) is list:
-                try:
-                    ret = self.__do_insert_many__(self.__insert_data__)
-                    return ret
-                except Exception as ex:
-                    return self.__insert_data__, ex, None
+                ret = self.__do_insert_many__(self.__insert_data__)
+                return ret
 
 
             else:
@@ -123,14 +120,10 @@ class entity():
                     return ret
                 except errors.DataException as ex:
                     return self.__insert_data__, ex, None
-                except Exception as ex:
-                    return self.__insert_data__,ex,None
+
         elif self.__data__!=None:
-            try:
-                ret = self.__do_update_data__(self.__data__)
-                return self.__data__,None,ret
-            except Exception as ex:
-                return self.__data__, ex, None
+            ret = self.__do_update_data__(self.__data__)
+            return self.__data__, None, ret
 
         else:
             return None,"Nothing to commit"
