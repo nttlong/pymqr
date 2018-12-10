@@ -257,7 +257,17 @@ class Fields(BaseFields):
             return ret
         if isinstance(other,dict):
             if self.__dict__.has_key("__origin__"):
-                ret_data = self.__dict__["__origin__"].create()
+                ret_data = None
+                if isinstance(self.__dict__["__origin__"],tuple):
+                    from  . import documents
+                    if isinstance(self.__dict__["__origin__"][0],list):
+                        ret_data=documents.EmbededDocument()(self.__dict__["__origin__"][0][0]).create()
+                    else:
+                        ret_data = documents.EmbededDocument()(self.__dict__["__origin__"][0]).create()
+
+                  
+                else:
+                    ret_data = self.__dict__["__origin__"].create()
                 ret_data.__dict__.update(other)
                 return ret_data
             else:
