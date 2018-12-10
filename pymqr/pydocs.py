@@ -268,6 +268,13 @@ class Fields(BaseFields):
                   
                 else:
                     ret_data = self.__dict__["__origin__"].create()
+
+                if set(other).difference(set(ret_data.__properties_types__)).__len__()>0:
+                    raise Exception("{0} was not in {1}".format(
+                        list(set(other).difference(set(ret_data.__properties_types__))),
+                        list(set(ret_data.__properties_types__))
+                    ))
+
                 ret_data.__dict__.update(other)
                 return ret_data
             else:
