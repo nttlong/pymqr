@@ -29,6 +29,8 @@ class PageDataItems (object):
 
 class query ():
     def __init__(self, *args, **kwargs):
+        self._args=args
+        self._kwargs = kwargs
         self.collection_name = None
         self.db = None
         self.prefix = None
@@ -38,10 +40,7 @@ class query ():
         if args.__len__() == 3:
             self.db = args[0]
             self.prefix = args[1]
-            if type(args[2]) in [str,unicode]:
-                self.collection_name =args[2]
-            else:
-                self.collection_name = args[2].get_collection_name()
+            self.collection_name =args[2].get_collection_name()
             self.pipeline = []
             return
         if args.__len__()==1:
@@ -79,6 +78,8 @@ class query ():
                 self.coll = args[0]
         self.pipeline = []
 
+    def new(self):
+        return query(*self._args,**self._kwargs)
     @property
     def collection_full_name(self):
         if self.prefix != None:
@@ -91,7 +92,7 @@ class query ():
         global __has_create_unique_key__
         if __has_create_unique_key__ == None:
             __has_create_unique_key__ = {}
-        if documents.__collections_unique__ and documents.__collections_unique__.has_key(self.collection_name):
+        if documents.__collections_unique__.has_key(self.collection_name):
             if not __has_create_unique_key__.has_key(self.collection_full_name):
                 try:
                     __create_unique_keys__(self.db,self.collection_full_name,documents.__collections_unique__[self.collection_name]["fields"])
@@ -395,8 +396,8 @@ class query ():
             ret.total_items = ret_counts[0]["ret"]
             ret.page_size = page_size
             ret.page_index = page_index
-            ret.total_pages = ret.total_pages / ret.page_size
-            if ret.total_pages % ret.page_size > 0:
+            ret.total_pages = ret.total_items / ret.page_size
+            if ret.total_items % ret.page_size > 0:
                 ret.total_pages += 1
             self.pipeline.append ({
                 "$skip": ret.page_size * (ret.page_index)
