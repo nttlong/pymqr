@@ -159,7 +159,7 @@ class query ():
 
     def where(self, expr, *args, **kwargs):
         # type:()->pycollection.entity
-        if type (expr) is [str, unicode]:
+        if type (expr) in [str, unicode]:
             return pycollection.entity (self, expression_parser.to_mongobd_match (expr, *args, **kwargs))
         elif isinstance (expr, pydocs.Fields):
             return pycollection.entity (self, pydocs.get_field_expr (expr))
