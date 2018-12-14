@@ -3,21 +3,33 @@ import json
 
 
 def get_field_expr(x, not_prefix=False):
+    import datetime
+    t1 = datetime.datetime.now()
     if isinstance(x, Fields):
         if x.__tree__ == None:
             if x.__name__ == None:
                 return "this"
             else:
                 if not not_prefix:
+                    n =(datetime.datetime.now()-t1).microseconds
+                    print "get_field_expr {0}".format(n)
                     return "$" + x.__name__
                 else:
+                    n = (datetime.datetime.now () - t1).microseconds
+                    print "get_field_expr {0}".format (n)
                     return x.__name__
         else:
+            n = (datetime.datetime.now () - t1).microseconds
+            print "get_field_expr {0}".format (n)
             return x.__tree__
     elif type(x) in [str, unicode]:
         import expression_parser
+        n = (datetime.datetime.now () - t1).microseconds
+        print "get_field_expr {0}".format (n)
         return expression_parser.to_mongobd(x)
     else:
+        n = (datetime.datetime.now () - t1).microseconds
+        print "get_field_expr {0}".format (n)
         return x
 
 
@@ -257,30 +269,13 @@ class Fields(BaseFields):
             return ret
         if isinstance(other,dict):
             if self.__dict__.has_key("__origin__"):
-                ret_data = None
-                if isinstance(self.__dict__["__origin__"],tuple):
-                    from  . import documents
-                    if isinstance(self.__dict__["__origin__"][0],list):
-                        ret_data=documents.EmbededDocument()(self.__dict__["__origin__"][0][0]).create()
-                    else:
-                        ret_data = documents.EmbededDocument()(self.__dict__["__origin__"][0]).create()
-
-                  
-                else:
-                    ret_data = self.__dict__["__origin__"].create()
-
-                if set(other).difference(set(ret_data.__properties_types__)).__len__()>0:
-                    raise Exception("{0} was not in {1}".format(
-                        list(set(other).difference(set(ret_data.__properties_types__))),
-                        list(set(ret_data.__properties_types__))
-                    ))
-
+                raise Exception("Will be implement")
+                ret_data = self.__dict__["__origin__"].create()
                 ret_data.__dict__.update(other)
                 return ret_data
             else:
                 import mobject
                 return mobject.dynamic_object(other)
-
         import expression_parser
         if type(other) in [str, unicode]:
             ret = Fields()
@@ -376,6 +371,8 @@ class Fields(BaseFields):
     def __rpow__(self, other):
         return __r_apply__("$pow", self, other)
     def __set__(self, instance, value):
+        x=1
+    def __divmod__(self, other):
         x=1
 
 
