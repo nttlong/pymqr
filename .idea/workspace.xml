@@ -80,7 +80,10 @@
         <entry file="file://$PROJECT_DIR$/pymqr/pydocs.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="268">
-              <caret line="557" lean-forward="true" selection-start-line="557" selection-end-line="557" />
+              <caret line="559" lean-forward="true" selection-start-line="559" selection-end-line="559" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -242,7 +245,7 @@
     <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25182188" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25182188" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -255,7 +258,7 @@
       <window_info anchor="bottom" id="Code comment" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.40464345" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.40464345" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.32937366" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -402,7 +405,10 @@
     <entry file="file://$PROJECT_DIR$/pymqr/pydocs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
-          <caret line="557" lean-forward="true" selection-start-line="557" selection-end-line="557" />
+          <caret line="559" lean-forward="true" selection-start-line="559" selection-end-line="559" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
