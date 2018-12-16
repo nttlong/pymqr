@@ -3,21 +3,28 @@ import json
 
 
 def get_field_expr(x, not_prefix=False):
+    import datetime
+
     if isinstance(x, Fields):
         if x.__tree__ == None:
             if x.__name__ == None:
                 return "this"
             else:
                 if not not_prefix:
+
                     return "$" + x.__name__
                 else:
+
                     return x.__name__
         else:
+
             return x.__tree__
     elif type(x) in [str, unicode]:
         import expression_parser
+
         return expression_parser.to_mongobd(x)
     else:
+
         return x
 
 
@@ -160,10 +167,29 @@ class Fields(BaseFields):
     """
 
     def __getattr__(self, item):
+        ret_field = None
         if self.__name__ != None:
-            return Fields(self.__name__ + "." + item, self.__for_filter__)
+            ret_field = Fields(self.__name__ + "." + item, self.__for_filter__)
+            ret_field.__dict__.update({
+                "__parent__":self,
+                "__document__":self.__dict__.get("__document__",None)
+            })
+
         else:
-            return Fields(item, self.__for_filter__)
+            ret_field = Fields(item, self.__for_filter__)
+            ret_field.__dict__.update ({
+                "__parent__": self,
+                "__document__": self.__dict__.get("__document__",None)
+            })
+        if self.__dict__.get("__type__",None)!=None :
+
+            # __type__ = self.__dict__.get("__type__").__origin__.__dict__.get(item).__origin__
+            ret_field.__dict__.update({
+                "__type__":self.__dict__.get("__type__").__origin__.__dict__.get(item)
+            })
+
+
+        return ret_field
     def __str__(self):
         if BaseFields(self) == None:
             return "root"
@@ -214,7 +240,7 @@ class Fields(BaseFields):
 
 
     def __ne__(self, other):
-        if self.__for_filter:
+        if self.__dict__.get("__for_filter__", True):
             if type(other) in [str, unicode]:
                 self.__tree__ = {
                     self.__name__:{"$ne": {
@@ -257,13 +283,71 @@ class Fields(BaseFields):
             return ret
         if isinstance(other,dict):
             if self.__dict__.has_key("__origin__"):
-                ret_data = self.__dict__["__origin__"].create()
-                ret_data.__dict__.update(other)
-                return ret_data
+                doc = self.__dict__["__origin__"]
+                if isinstance (doc, tuple):
+                    doc = doc[0]
+                if isinstance (doc, list):
+                    doc = doc[0]
+                data = doc.__origin__()
+                default=[(k,v[2]) for k,v in data.__dict__.items() if isinstance(v,tuple) and v.__len__()==3 and v[1]==True]
+                required = [(k,v[1]) for k, v in data.__dict__.items () if
+                            isinstance (v, tuple) and v.__len__ () > 1 and v[1] == True]
+                missing= list(set([x[0] for x in required]).difference(set(other)).difference(set([x[0] for x in required])))
+                if missing.__len__()>0:
+                    raise Exception("{0} is missing fields {1}".format(
+                        self.__name__,missing
+                    ))
+                wrong_types = [(k,data.__dict__[k][0],type(v)) for k,v in other.items() if type(v)!=data.__dict__[k][0]]
+                if wrong_types.__len__()>0:
+                    raise Exception("{0} in {1} must be {2} not {3}".format(
+                        wrong_types[0][0],
+                        self.__name__,
+                        wrong_types[0][1],
+                        wrong_types[0][2]
+                    ))
+                unkown= list(set(other).difference(set(data.__dict__)))
+                if unkown.__len__()>0:
+                    raise Exception("{0} not in {1}".format(
+                        unkown,
+                        self.__name__
+                    ))
+                data.__dict__.update(other)
+                for x in default:
+                    if not data.__dict__.has_key(x[0]):
+                        if callable(x[1]):
+                            data.__dict__.update({x[0]: x[1]()})
+                        else:
+                            data.__dict__.update ({x[0]: x[1]})
+                return data
+
+            elif self.__dict__.get("__type__",None)!=None:
+                _type_ = self.__dict__["__type__"]
+                if hasattr(_type_,"__origin__"):
+                    _type_ = _type_.__origin__
+                else:
+                    _type_ = _type_()
+                def feed(x):
+                    for k, v in x.__dict__.items ():
+                        if isinstance (v[0], object):
+                            v = v[0] ()
+                        elif v.__len__ () == 3:
+                            if callable (v[2]):
+                                v = v[2] ()
+                            else:
+                                v = v[2]
+                        else:
+                            v = None
+                        x.__dict__.update ({k: v})
+                    return x
+
+                x = feed(_type_)
+                return x
+
+                # ret_data =_type_.create()
+                # return self.__dict__["__type__"]<<{}
             else:
                 import mobject
                 return mobject.dynamic_object(other)
-
         import expression_parser
         if type(other) in [str, unicode]:
             ret = Fields()
@@ -360,6 +444,8 @@ class Fields(BaseFields):
         return __r_apply__("$pow", self, other)
     def __set__(self, instance, value):
         x=1
+    def __divmod__(self, other):
+        x=1
 
 
 
@@ -396,6 +482,10 @@ class Fields(BaseFields):
             if self.__tree__ == None:
                 return {
                     self.__dict__["__alias__"]: self.__name__
+                }
+            elif self.__name__ == None:
+                return {
+                    self.__dict__["__alias__"]: self.__tree__
                 }
             else:
                 return {

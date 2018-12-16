@@ -29,12 +29,20 @@ class PageDataItems (object):
 
 class query ():
     def __init__(self, *args, **kwargs):
+        self._args=args
+        self._kwargs = kwargs
         self.collection_name = None
         self.db = None
         self.prefix = None
         import documents
         from pymongo import database
         from pymongo import collection
+        if args.__len__() == 3:
+            self.db = args[0]
+            self.prefix = args[1]
+            self.collection_name =args[2].get_collection_name()
+            self.pipeline = []
+            return
         if args.__len__()==1:
             if not type(args[0]) in [str,unicode] and \
                     not issubclass (type (args[0]), documents.BaseDocuments) and \
@@ -70,6 +78,8 @@ class query ():
                 self.coll = args[0]
         self.pipeline = []
 
+    def new(self):
+        return query(*self._args,**self._kwargs)
     @property
     def collection_full_name(self):
         if self.prefix != None:
@@ -280,7 +290,7 @@ class query ():
         ))
         return self
 
-    def group(self, _id=None, *args, **kwargs):
+    def group(self, _id, *args, **kwargs):
         import pyaggregatebuilders
         self.stages (pyaggregatebuilders.Group (
             _id,
@@ -386,8 +396,8 @@ class query ():
             ret.total_items = ret_counts[0]["ret"]
             ret.page_size = page_size
             ret.page_index = page_index
-            ret.total_pages = ret.total_pages / ret.page_size
-            if ret.total_pages % ret.page_size > 0:
+            ret.total_pages = ret.total_items / ret.page_size
+            if ret.total_items % ret.page_size > 0:
                 ret.total_pages += 1
             self.pipeline.append ({
                 "$skip": ret.page_size * (ret.page_index)

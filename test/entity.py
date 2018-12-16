@@ -10,7 +10,6 @@ doc=pymqr.documents()
 doc.name=int
 doc.code=str
 
-print doc.__dict__
 db = cnn.get_database("hrm")
 db.authenticate("root","123456")
 items=pymqr.query(db,"employees").items

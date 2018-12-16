@@ -178,7 +178,7 @@ class Lookup(PipelineStage):
             raise Exception("'coll' must be 'str' or 'unicode'")
         if isinstance(coll,documents.BaseDocuments):
             _CC = coll.get_collection_name()
-        if type(alias) not in [str, unicode]:
+        if type(_AS) not in [str, unicode]:
             raise Exception("'alias' must be 'str' or 'unicode'")
         if isinstance(localField, pydocs.Fields):
             _LF = pydocs.get_field_expr(_LF, True)
@@ -341,7 +341,7 @@ class Facet(PipelineStage):
 
 
 class Group(PipelineStage):
-    def __init__(self, _id=None, *args, **kwargs):
+    def __init__(self, _id, *args, **kwargs):
         import pydocs
         import expression_parser
         __id = _id
@@ -369,9 +369,13 @@ class Group(PipelineStage):
                         item:expression_parser.to_mongobd(item)
                     })
                 elif isinstance(item,pydocs.Fields):
-                    _selector.update({
+                    cValue = item.to_mongodb()
+                    if not isinstance(cValue,dict):
+                        raise Exception("Select item in group must be alias, not a fiel\n"
+                                        "Example: group(None,pymqr.docs.MyFielsdName<<pymqr.funcs.first(pymqr.docs.MyFielsdName)")
+                    _selector.update(
                         item.to_mongodb()
-                    })
+                    )
 
         self.__stage__ = _selector
 
@@ -400,10 +404,16 @@ class Sort(PipelineStage):
     def __init__(self, *args, **kwargs):
         import pydocs
         import expression_parser
-        data = {}
+        import pymongo
+        from collections import OrderedDict
+        data =  OrderedDict()
         if args.__len__() > 0:
             for item in args:
-                data.update(item)
+                if item.items()[0][1] == 1:
+                    data[item.items()[0][0]]=pymongo.ASCENDING
+                else:
+                    data[item.items()[0][0]]=pymongo.DESCENDING
+
         else:
             for k, v in kwargs.items():
                 if type(k) in [str, unicode]:
