@@ -65,9 +65,10 @@ class entity():
     @property
     def item(self):
         import datetime
-
+        t = datetime.datetime.now()
         ret = self.find_one()
-
+        n = (datetime.datetime.now()-t).microseconds
+        print "get item {0}".format(n)
         return ret
     @property
     def items(self):
@@ -80,12 +81,15 @@ class entity():
     @property
     def object(self):
         import datetime
-
+        t = datetime.datetime.now()
         obj = self.find_one ()
-
+        n = (datetime.datetime.now()-t).microseconds
+        print "get data {0}".format(n)
+        t = datetime.datetime.now ()
 
         ret =mobject.dynamic_object(obj)
-
+        n = (datetime.datetime.now () - t).microseconds
+        print "connvert data {0}".format (n)
         return ret
     def __do_insert_one__(self,data):
         import pymongo

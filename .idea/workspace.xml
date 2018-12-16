@@ -3,20 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d480f0af-f98e-4019-82ef-b02a3f9467dc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/categories/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/categories/deps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/commons/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/emps/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pymqr/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pymqr/documents.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/documents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pymqr/mobject.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/mobject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pymqr/pyaggregatebuilders.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/pyaggregatebuilders.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pymqr/pycollection.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/pycollection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pymqr/pydocs.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/pydocs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pymqr/pyfuncs.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/pyfuncs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pymqr/pyquery.py" beforeDir="false" afterPath="$PROJECT_DIR$/pymqr/pyquery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/entity.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,13 +31,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="1" />
-          <entry key="py" value="435" />
+          <entry key="py" value="462" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Git file" value="1" />
-          <entry key="Python" value="435" />
+          <entry key="Python" value="462" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
@@ -72,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pymqr/pydocs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+            <state relative-caret-position="-199">
+              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -108,11 +98,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pymqr/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="16" selection-start-column="16" selection-end-column="16" />
+            <state relative-caret-position="202">
+              <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -120,8 +110,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pymqr/pycollection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="68" column="29" lean-forward="true" selection-start-line="68" selection-start-column="29" selection-end-line="68" selection-end-column="29" />
+            <state relative-caret-position="197">
+              <caret line="191" column="12" lean-forward="true" selection-start-line="191" selection-start-column="12" selection-end-line="191" selection-end-column="12" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -194,9 +184,9 @@
         <option value="$PROJECT_DIR$/pymqr/pyquery.py" />
         <option value="$PROJECT_DIR$/pymqr/errors.py" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/pymqr/pydocs.py" />
-        <option value="$PROJECT_DIR$/pymqr/pycollection.py" />
         <option value="$PROJECT_DIR$/pymqr/__init__.py" />
+        <option value="$PROJECT_DIR$/pymqr/pycollection.py" />
+        <option value="$PROJECT_DIR$/pymqr/pydocs.py" />
       </list>
     </option>
   </component>
@@ -299,27 +289,27 @@
     <frame x="-7" y="-7" width="1295" height="735" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25182188" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25182188" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32937366" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.41791046" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.41791046" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Code comment" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32669982" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.17247097" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.32937366" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="R Graphics" order="3" />
-      <window_info anchor="right" id="R Packages" order="4" />
-      <window_info anchor="right" id="Embedded Web Browser" order="5" />
+      <window_info anchor="right" id="Embedded Web Browser" order="4" weight="0.32955465" />
+      <window_info anchor="right" id="R Packages" order="5" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -330,12 +320,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pymqr/pydocs.py</url>
-          <line>430</line>
+          <line>454</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pymqr/pydocs.py</url>
-          <line>94</line>
+          <line>116</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
@@ -458,30 +448,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pymqr/pydocs.py">
+    <entry file="file://$PROJECT_DIR$/pymqr/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="202">
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pymqr/pycollection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="68" column="29" lean-forward="true" selection-start-line="68" selection-start-column="29" selection-end-line="68" selection-end-column="29" />
+        <state relative-caret-position="197">
+          <caret line="191" column="12" lean-forward="true" selection-start-line="191" selection-start-column="12" selection-end-line="191" selection-end-column="12" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pymqr/__init__.py">
+    <entry file="file://$PROJECT_DIR$/pymqr/pydocs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="16" selection-start-column="16" selection-end-column="16" />
+        <state relative-caret-position="-199">
+          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
