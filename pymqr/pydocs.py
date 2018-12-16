@@ -11,25 +11,15 @@ def get_field_expr(x, not_prefix=False):
                 return "this"
             else:
                 if not not_prefix:
-                    n =(datetime.datetime.now()-t1).microseconds
-                    print "get_field_expr {0}".format(n)
-                    return "$" + x.__name__
+                   return "$" + x.__name__
                 else:
-                    n = (datetime.datetime.now () - t1).microseconds
-                    print "get_field_expr {0}".format (n)
                     return x.__name__
         else:
-            n = (datetime.datetime.now () - t1).microseconds
-            print "get_field_expr {0}".format (n)
             return x.__tree__
     elif type(x) in [str, unicode]:
         import expression_parser
-        n = (datetime.datetime.now () - t1).microseconds
-        print "get_field_expr {0}".format (n)
         return expression_parser.to_mongobd(x)
     else:
-        n = (datetime.datetime.now () - t1).microseconds
-        print "get_field_expr {0}".format (n)
         return x
 
 
