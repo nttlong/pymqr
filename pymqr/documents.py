@@ -251,6 +251,8 @@ class BaseDocuments(object):
         if self.__dict__.has_key("__origin__"):
             if hasattr(self.__dict__,"__dict__"):
                 field_types = __GOBBLE__.get_fields_info (self.__dict__["__origin__"].__dict__)
+            elif isinstance(self.__dict__["__origin__"],type) and issubclass(self.__dict__["__origin__"],object):
+                field_types = __GOBBLE__.get_fields_info(self.__dict__["__origin__"]())
             else:
                 field_types = __GOBBLE__.get_fields_info (self.__dict__["__origin__"])
 
@@ -285,13 +287,18 @@ class BaseDocuments(object):
                     if data_type in [int,float]:
                         fn =0
                     elif data_type in [str,unicode]:
-                        fn = ""
+                        if v.__len__()>2:
+                            fn =  v[2]
+                        else:
+                            fn= None
+                        if callable(fn):
+                            fn=fn()
                     elif data_type == bool:
                         fn =False
                     elif data_type == uuid.UUID:
                         fn = uuid.uuid4()
                     elif data_type == datetime.datetime:
-                        fn = datetime.datetime.now()
+                        fn = (lambda: v[2] if v.__len__() > 2 else datetime.datetime.now())()
                     elif isinstance(v[0],BaseDocuments):
                         fn = v[0].create()
 
