@@ -313,7 +313,8 @@ class Fields(BaseFields):
                 wrong_types = [(k,data.__dict__[k][0],type(v)) for k,v in _other.items() if data.__dict__.has_key(k) and\
                                (not((type(v) in [str,unicode] and data.__dict__[k][0] in [str,unicode]) or \
                                (type(v)==data.__dict__[k][0]) or \
-                               (v==None and data.__dict__[k][1]==False)))]
+                               (v==None and data.__dict__[k][1]==False) or \
+                                    (type(v)==list and type(data.__dict__[k][0]))))]
                 if wrong_types.__len__()>0:
                     raise Exception("{0} in {1} must be {2} not {3}".format(
                         wrong_types[0][0],
