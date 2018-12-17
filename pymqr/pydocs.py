@@ -277,7 +277,7 @@ class Fields(BaseFields):
             })
             return ret
         if isinstance(other,dict):
-            if self.__dict__.has_key("__origin__"):
+            if self.__dict__.has_key("__origin__") or self.__dict__.has_key("__type__"):
                 _other = {}
                 for k,v in other.items():
                     if isinstance(k,Fields):
@@ -296,7 +296,7 @@ class Fields(BaseFields):
                             k: v
                         })
                     
-                doc = self.__dict__["__origin__"]
+                doc = self.__dict__.get("__origin__",self.__dict__.get("__type__"))
                 if isinstance (doc, tuple):
                     doc = doc[0]
                 if isinstance (doc, list):
