@@ -278,6 +278,24 @@ class Fields(BaseFields):
             return ret
         if isinstance(other,dict):
             if self.__dict__.has_key("__origin__"):
+                _other = {}
+                for k,v in other.items():
+                    if isinstance(k,Fields):
+                        if k.__parent__.__origin__==self.__origin__:
+                            f=k.__name__[k.__parent__.__name__.__len__()+1:k.__name__.__len__()]
+                            _other.update({
+                                f:v
+                            })
+                        else:
+                            f = get_field_expr(k,True)
+                            _other.update({
+                                f: v
+                            })
+                    else:
+                        _other.update({
+                            k: v
+                        })
+                    
                 doc = self.__dict__["__origin__"]
                 if isinstance (doc, tuple):
                     doc = doc[0]
@@ -287,14 +305,15 @@ class Fields(BaseFields):
                 default=[(k,v[2]) for k,v in data.__dict__.items() if isinstance(v,tuple) and v.__len__()==3 and v[1]==True]
                 required = [(k,v[1]) for k, v in data.__dict__.items () if
                             isinstance (v, tuple) and v.__len__ () > 1 and v[1] == True]
-                missing= list(set([x[0] for x in required]).difference(set(other)).difference(set([x[0] for x in required])))
+                missing= list(set([x[0] for x in required]).difference(set(_other)).difference(set([x[0] for x in required])))
                 if missing.__len__()>0:
                     raise Exception("{0} is missing fields {1}".format(
                         self.__name__,missing
                     ))
-                wrong_types = [(k,data.__dict__[k][0],type(v)) for k,v in other.items() if data.__dict__.has_key(k) and\
+                wrong_types = [(k,data.__dict__[k][0],type(v)) for k,v in _other.items() if data.__dict__.has_key(k) and\
                                (not((type(v) in [str,unicode] and data.__dict__[k][0] in [str,unicode]) or \
-                               (type(v)==data.__dict__[k][0])))]
+                               (type(v)==data.__dict__[k][0]) or \
+                               (v==None and data.__dict__[k][1]==False)))]
                 if wrong_types.__len__()>0:
                     raise Exception("{0} in {1} must be {2} not {3}".format(
                         wrong_types[0][0],
@@ -302,13 +321,13 @@ class Fields(BaseFields):
                         wrong_types[0][1],
                         wrong_types[0][2]
                     ))
-                unkown= list(set(other).difference(set(data.__dict__)))
+                unkown= list(set(_other).difference(set(data.__dict__)))
                 if unkown.__len__()>0:
                     raise Exception("{0} not in {1}".format(
                         unkown,
                         self.__name__
                     ))
-                data.__dict__.update(other)
+                data.__dict__.update(_other)
                 for x in default:
                     if not data.__dict__.has_key(x[0]):
                         if callable(x[1]):
