@@ -334,7 +334,13 @@ class Fields(BaseFields):
                             data.__dict__.update({x[0]: x[1]()})
                         else:
                             data.__dict__.update ({x[0]: x[1]})
-                return data
+                import mobject
+                ret_obj = mobject.dynamic_object()
+                ret_obj.__dict__.update(data.__dict__)
+                ret_obj.__dict__.update({
+                    "__properties__":doc.__origin__().__dict__
+                })
+                return ret_obj
 
             elif self.__dict__.get("__type__",None)!=None:
                 _type_ = self.__dict__["__type__"]
