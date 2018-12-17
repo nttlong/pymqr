@@ -137,6 +137,31 @@ class dynamic_object(__validator_class__):
 
         return super(dynamic_object, self).__getattr__(item)
     def __setattr__(self, key, value):
+        if self.__dict__.has_key("__properties__"):
+            if not self.__dict__["__properties__"].has_key(key):
+                raise Exception("{0} was not found".format(key))
+            attr= self.__dict__["__properties__"][key]
+            if isinstance(attr,tuple):
+                t = attr[0]
+                r =attr[1]
+                if r==False:
+                    if value != None:
+                        if t!=type(value):
+                            raise Exception("{0} must be {1} not {2} which is equal {3}".format(
+                                key,t,type(value),value
+                            ))
+                else:
+                    if t!=type(value):
+                        raise Exception("{0} must be {1} not {2} which is equal {3}".format(
+                            key, t, type(value), value
+                        ))
+            elif isinstance(attr,type):
+                if value!=None:
+                    if attr!=type(value):
+                        raise Exception("{0} must be {1} not {2} which is equal {3}".format(
+                            key, attr, type(value), value
+                        ))
+
         super(dynamic_object, self).__setattr__(key, value)
     def is_empty(self):
         return self.__dict__ == {}
