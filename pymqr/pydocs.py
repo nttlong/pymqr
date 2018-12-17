@@ -329,7 +329,7 @@ class Fields(BaseFields):
                     ))
                 data.__dict__.update(_other)
                 for x in default:
-                    if not data.__dict__.has_key(x[0]):
+                    if not _other.has_key(x[0]):
                         if callable(x[1]):
                             data.__dict__.update({x[0]: x[1]()})
                         else:
