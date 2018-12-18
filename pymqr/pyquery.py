@@ -392,7 +392,7 @@ class query ():
         _pipeline.append ({
             "$count": "ret"
         })
-        ret_counts = list (self.coll.aggregate (_pipeline))
+        ret_counts = list (self.coll.aggregate (_pipeline,allowDiskUse=True))
         ret = PageDataItems ()
         if ret_counts.__len__ () == 0:
             return ret
@@ -409,7 +409,7 @@ class query ():
             self.pipeline.append ({
                 "$limit": ret.page_size
             })
-            ret.items = list (self.coll.aggregate (self.pipeline))
+            ret.items = list (self.coll.aggregate (self.pipeline,allowDiskUse=True))
             return ret
 
     def get_page_of_object(self, page_size, page_index):
