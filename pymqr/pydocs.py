@@ -11,7 +11,7 @@ def get_field_expr(x, not_prefix=False):
                 return "this"
             else:
                 if not not_prefix:
-                   return "$" + x.__name__
+                    return "$" + x.__name__
                 else:
                     return x.__name__
         else:
@@ -86,6 +86,8 @@ def __apply__(fn, a, b):
         }
         setattr(a, "__tree__", ret_tree)
     return a
+
+
 def __r_apply__(fn, a, b):
     if isinstance(b, Fields):
         ret_tree = {
@@ -95,7 +97,7 @@ def __r_apply__(fn, a, b):
 
     elif type(b) in [str, unicode]:
         ret_tree = {
-            fn: [b,get_field_expr(a)]
+            fn: [b, get_field_expr(a)]
         }
         setattr(a, "__tree__", ret_tree)
     elif isinstance(b, tuple) and b.__len__() > 0:
@@ -105,12 +107,12 @@ def __r_apply__(fn, a, b):
             _params.append(b[i])
         import expression_parser
         ret_tree = {
-            fn: [expression_parser.to_mongobd(_b, *tuple(_params)),get_field_expr(a) ]
+            fn: [expression_parser.to_mongobd(_b, *tuple(_params)), get_field_expr(a)]
         }
         setattr(a, "__tree__", ret_tree)
     else:
         ret_tree = {
-            fn: [b,get_field_expr(a)]
+            fn: [b, get_field_expr(a)]
         }
         setattr(a, "__tree__", ret_tree)
     return a
@@ -166,25 +168,24 @@ class Fields(BaseFields):
         if self.__name__ != None:
             ret_field = Fields(self.__name__ + "." + item, self.__for_filter__)
             ret_field.__dict__.update({
-                "__parent__":self,
-                "__document__":self.__dict__.get("__document__",None)
+                "__parent__": self,
+                "__document__": self.__dict__.get("__document__", None)
             })
 
         else:
             ret_field = Fields(item, self.__for_filter__)
-            ret_field.__dict__.update ({
+            ret_field.__dict__.update({
                 "__parent__": self,
-                "__document__": self.__dict__.get("__document__",None)
+                "__document__": self.__dict__.get("__document__", None)
             })
-        if self.__dict__.get("__type__",None)!=None :
-
+        if self.__dict__.get("__type__", None) != None:
             # __type__ = self.__dict__.get("__type__").__origin__.__dict__.get(item).__origin__
             ret_field.__dict__.update({
-                "__type__":self.__dict__.get("__type__").__origin__.__dict__.get(item)
+                "__type__": self.__dict__.get("__type__").__origin__.__dict__.get(item)
             })
 
-
         return ret_field
+
     def __str__(self):
         if BaseFields(self) == None:
             return "root"
@@ -201,6 +202,7 @@ class Fields(BaseFields):
 
     def __mul__(self, other):
         return __apply__("$multiply", self, other)
+
     def __pow__(self, power, modulo=None):
         return __apply__("$power", self, power)
 
@@ -211,41 +213,40 @@ class Fields(BaseFields):
         return __apply__("$mod", self, other)
 
     def __eq__(self, other):
-        if self.__dict__.get("__for_filter__",True):
+        if self.__dict__.get("__for_filter__", True):
             if type(other) in [str, unicode]:
                 self.__tree__ = {
                     self.__name__: {
-                        "$regex": re.compile("^" + other + "$", re.IGNORECASE)
+                        "$regex": re.compile("^" + get_field_expr(other, True) + "$", re.IGNORECASE)
                     }
                 }
                 return self
-            elif self.__tree__!=None and self.__tree__!={}:
+            elif self.__tree__ != None and self.__tree__ != {}:
                 self.__tree__ = {
-                    "$eq":[self.__tree__,get_field_expr(other,True)]
+                    "$eq": [self.__tree__, get_field_expr(other, True)]
                 }
                 return self
 
             else:
                 self.__tree__ = {
-                    self.__name__: other
+                    self.__name__: get_field_expr(other, False)
                 }
                 return self
 
         return __apply__("$eq", self, other)
 
-
     def __ne__(self, other):
         if self.__dict__.get("__for_filter__", True):
             if type(other) in [str, unicode]:
                 self.__tree__ = {
-                    self.__name__:{"$ne": {
+                    self.__name__: {"$ne": {
                         "$regex": re.compile("^" + other + "$", re.IGNORECASE)
                     }}
                 }
                 return self
             else:
                 self.__tree__ = {
-                    self.__name__:{"$ne": other}
+                    self.__name__: {"$ne": other}
                 }
                 return self
         return __apply__("$ne", self, other)
@@ -269,25 +270,25 @@ class Fields(BaseFields):
         return __apply__("$or", self, other)
 
     def __lshift__(self, other):
-        if other is 0 :
-            ret = Fields ()
-            ret.__tree__ = get_field_expr (other, True)
-            ret.__dict__.update ({
+        if other is 0:
+            ret = Fields()
+            ret.__tree__ = get_field_expr(other, True)
+            ret.__dict__.update({
                 "__alias__": self.__name__
             })
             return ret
-        if isinstance(other,dict):
+        if isinstance(other, dict):
             if self.__dict__.has_key("__origin__") or self.__dict__.has_key("__type__"):
                 _other = {}
-                for k,v in other.items():
-                    if isinstance(k,Fields):
-                        if k.__parent__.__origin__==self.__origin__:
-                            f=k.__name__[k.__parent__.__name__.__len__()+1:k.__name__.__len__()]
+                for k, v in other.items():
+                    if isinstance(k, Fields):
+                        if k.__parent__.__origin__ == self.__origin__:
+                            f = k.__name__[k.__parent__.__name__.__len__() + 1:k.__name__.__len__()]
                             _other.update({
-                                f:v
+                                f: v
                             })
                         else:
-                            f = get_field_expr(k,True)
+                            f = get_field_expr(k, True)
                             _other.update({
                                 f: v
                             })
@@ -295,35 +296,38 @@ class Fields(BaseFields):
                         _other.update({
                             k: v
                         })
-                    
-                doc = self.__dict__.get("__origin__",self.__dict__.get("__type__"))
-                if isinstance (doc, tuple):
+
+                doc = self.__dict__.get("__origin__", self.__dict__.get("__type__"))
+                if isinstance(doc, tuple):
                     doc = doc[0]
-                if isinstance (doc, list):
+                if isinstance(doc, list):
                     doc = doc[0]
                 data = doc.__origin__()
-                default=[(k,v[2]) for k,v in data.__dict__.items() if isinstance(v,tuple) and v.__len__()==3 and v[1]==True]
-                required = [(k,v[1]) for k, v in data.__dict__.items () if
-                            isinstance (v, tuple) and v.__len__ () > 1 and v[1] == True]
-                missing= list(set([x[0] for x in required]).difference(set(_other)).difference(set([x[0] for x in required])))
-                if missing.__len__()>0:
+                default = [(k, v[2]) for k, v in data.__dict__.items() if
+                           isinstance(v, tuple) and v.__len__() == 3 and v[1] == True]
+                required = [(k, v[1]) for k, v in data.__dict__.items() if
+                            isinstance(v, tuple) and v.__len__() > 1 and v[1] == True]
+                missing = list(
+                    set([x[0] for x in required]).difference(set(_other)).difference(set([x[0] for x in required])))
+                if missing.__len__() > 0:
                     raise Exception("{0} is missing fields {1}".format(
-                        self.__name__,missing
+                        self.__name__, missing
                     ))
-                wrong_types = [(k,data.__dict__[k][0],type(v)) for k,v in _other.items() if data.__dict__.has_key(k) and\
-                               (not((type(v) in [str,unicode] and data.__dict__[k][0] in [str,unicode]) or \
-                               (type(v)==data.__dict__[k][0]) or \
-                               (v==None and data.__dict__[k][1]==False) or \
-                                    (type(v)==list and type(data.__dict__[k][0]))))]
-                if wrong_types.__len__()>0:
+                wrong_types = [(k, data.__dict__[k][0], type(v)) for k, v in _other.items() if
+                               data.__dict__.has_key(k) and \
+                               (not ((type(v) in [str, unicode] and data.__dict__[k][0] in [str, unicode]) or \
+                                     (type(v) == data.__dict__[k][0]) or \
+                                     (v == None and data.__dict__[k][1] == False) or \
+                                     (type(v) == list and type(data.__dict__[k][0]))))]
+                if wrong_types.__len__() > 0:
                     raise Exception("{0} in {1} must be {2} not {3}".format(
                         wrong_types[0][0],
                         self.__name__,
                         wrong_types[0][1],
                         wrong_types[0][2]
                     ))
-                unkown= list(set(_other).difference(set(data.__dict__)))
-                if unkown.__len__()>0:
+                unkown = list(set(_other).difference(set(data.__dict__)))
+                if unkown.__len__() > 0:
                     raise Exception("{0} not in {1}".format(
                         unkown,
                         self.__name__
@@ -334,33 +338,34 @@ class Fields(BaseFields):
                         if callable(x[1]):
                             data.__dict__.update({x[0]: x[1]()})
                         else:
-                            data.__dict__.update ({x[0]: x[1]})
+                            data.__dict__.update({x[0]: x[1]})
                 import mobject
                 ret_obj = mobject.dynamic_object()
                 ret_obj.__dict__.update(data.__dict__)
                 ret_obj.__dict__.update({
-                    "__properties__":doc.__origin__().__dict__
+                    "__properties__": doc.__origin__().__dict__
                 })
                 return ret_obj
 
-            elif self.__dict__.get("__type__",None)!=None:
+            elif self.__dict__.get("__type__", None) != None:
                 _type_ = self.__dict__["__type__"]
-                if hasattr(_type_,"__origin__"):
+                if hasattr(_type_, "__origin__"):
                     _type_ = _type_.__origin__
                 else:
                     _type_ = _type_()
+
                 def feed(x):
-                    for k, v in x.__dict__.items ():
-                        if isinstance (v[0], object):
-                            v = v[0] ()
-                        elif v.__len__ () == 3:
-                            if callable (v[2]):
-                                v = v[2] ()
+                    for k, v in x.__dict__.items():
+                        if isinstance(v[0], object):
+                            v = v[0]()
+                        elif v.__len__() == 3:
+                            if callable(v[2]):
+                                v = v[2]()
                             else:
                                 v = v[2]
                         else:
                             v = None
-                        x.__dict__.update ({k: v})
+                        x.__dict__.update({k: v})
                     return x
 
                 x = feed(_type_)
@@ -449,28 +454,36 @@ class Fields(BaseFields):
             else:
                 return Fields("this" + self.__name__ + "." + args[0].__str__())
         return None
+
     def __radd__(self, other):
         return __r_apply__("$add", self, other)
+
     def __ror__(self, other):
         return __r_apply__("$or", self, other)
+
     def __rand__(self, other):
         return __r_apply__("$and", self, other)
+
     def __rmul__(self, other):
         return self.__mul__(other)
+
     def __rsub__(self, other):
-        return __r_apply__("$subtract",self,other)
+        return __r_apply__("$subtract", self, other)
+
     def __rdiv__(self, other):
         return __r_apply__("$divide", self, other)
+
     def __rmod__(self, other):
         return __r_apply__("$mod", self, other)
+
     def __rpow__(self, other):
         return __r_apply__("$pow", self, other)
+
     def __set__(self, instance, value):
-        x=1
+        x = 1
+
     def __divmod__(self, other):
-        x=1
-
-
+        x = 1
 
     def __rshift__(self, other):
         if isinstance(other, dict):
@@ -485,17 +498,21 @@ class Fields(BaseFields):
             return {
                 get_field_expr(self, True): other
             }
+
     def var(self):
-        self.__name__ = "$"+self.__name__
+        self.__name__ = "$" + self.__name__
         return self
+
     def asc(self):
         return {
-            get_field_expr(self,True):1
+            get_field_expr(self, True): 1
         }
+
     def desc(self):
         return {
             get_field_expr(self, True): -1
         }
+
     def to_mongodb(self):
         """
         parse to mongodb expression
