@@ -95,14 +95,15 @@ class query ():
         global __has_create_unique_key__
         if __has_create_unique_key__ == None:
             __has_create_unique_key__ = {}
-        if documents.__collections_unique__.has_key(self.collection_name):
-            if not __has_create_unique_key__.has_key(self.collection_full_name):
-                try:
-                    __create_unique_keys__(self.db,self.collection_full_name,documents.__collections_unique__[self.collection_name]["fields"])
-                except Exception as ex:
-                    __has_create_unique_key__.update({
-                        self.collection_full_name:True
-                    })
+        if hasattr(documents,"__collections_unique__") and documents.__collections_unique__!=None:
+            if documents.__collections_unique__.has_key(self.collection_name):
+                if not __has_create_unique_key__.has_key(self.collection_full_name):
+                    try:
+                        __create_unique_keys__(self.db,self.collection_full_name,documents.__collections_unique__[self.collection_name]["fields"])
+                    except Exception as ex:
+                        __has_create_unique_key__.update({
+                            self.collection_full_name:True
+                        })
         return self.db.get_collection(self.collection_full_name)
     def stages(self, *args, **kwargs):
         import pyaggregatebuilders
