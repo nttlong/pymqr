@@ -40,7 +40,10 @@ class query ():
         if args.__len__() == 3:
             self.db = args[0]
             self.prefix = args[1]
-            self.collection_name =args[2].get_collection_name()
+            if type(args[2]) in [str,unicode]:
+                self.collection_name = args[2]
+            else:
+                self.collection_name = args[2].get_collection_name()
             self.pipeline = []
             return
         if args.__len__()==1:
