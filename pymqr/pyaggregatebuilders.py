@@ -210,7 +210,7 @@ class Lookup(PipelineStage):
             _params = tuple([x for x in let if let.index(x) > 0])
             _l = expression_parser.to_mongobd(_l, *_params)
         elif isinstance(let, pydocs.Fields):
-            _l = pydocs.get_field_expr(_l, True)
+            _l = let.to_mongodb()
         elif type(let) in [str, unicode]:
             _l = expression_parser.to_mongobd(_l)
         self.__stage__ = {
@@ -219,7 +219,7 @@ class Lookup(PipelineStage):
             "as": alias
         }
         if let != None:
-            self.__stage__.update({"let": let})
+            self.__stage__.update({"let": _l})
 
 
 class Unwind(PipelineStage):
